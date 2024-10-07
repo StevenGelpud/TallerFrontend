@@ -1,8 +1,8 @@
 export class AdopcionModel {
         constructor(
-        public id: number,
-        public usuarioId: number,
-        public mascotaId: number,
-        public fechaAdopcion: Date
+        public usuarioId: string,
+        public mascotaId: string,
+        public fechaAdopcion: Date,
+        public id?: string
         ) {}
     }

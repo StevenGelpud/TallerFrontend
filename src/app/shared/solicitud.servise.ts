@@ -21,17 +21,17 @@ import { SolicitudModel } from './solicitud.model'; // Asegúrate de que la ruta
     }
 
     // Buscar una solicitud por ID
-    obtenerSolicitud(id: number) {
-        return this.http.get<SolicitudModel>(`${this.BASE_URL}/solicitudes/${id}`);
+    obtenerSolicitud(id: string) {
+        return this.http.get<SolicitudModel>(`${this.BASE_URL}/solicitudes/buscarid/${id}`);
     }
 
     // Actualizar una solicitud
     actualizarSolicitud(solicitud: SolicitudModel) {
-        return this.http.put<SolicitudModel>(`${this.BASE_URL}/solicitudes/${solicitud.id}`, solicitud);
+        return this.http.put<SolicitudModel>(`${this.BASE_URL}/solicitudes/actualizar/${solicitud.id}`, solicitud);
     }
 
     // Eliminar una solicitud
-    borrarSolicitud(id: number) {
-        return this.http.delete<string>(`${this.BASE_URL}/solicitudes/${id}`);
+    borrarSolicitud(id: string) {
+        return this.http.delete<string>(`${this.BASE_URL}/solicitudes/eliminar/${id}`);
     }
     }

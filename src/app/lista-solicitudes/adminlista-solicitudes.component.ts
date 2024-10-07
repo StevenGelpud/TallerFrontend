@@ -39,7 +39,7 @@ export class ListaSolicitudesComponentAd implements OnInit {
     });
   }
 
-  borrarSolicitud(idSolicitud: number | undefined) {
+  borrarSolicitud(idSolicitud?: string) {
     if (idSolicitud !== undefined) {
         this.solicitudService.borrarSolicitud(idSolicitud).subscribe({
             next: () => {
@@ -54,5 +54,6 @@ export class ListaSolicitudesComponentAd implements OnInit {
         console.error('ID de solicitud no definido');
     }
 }
+
 
 }

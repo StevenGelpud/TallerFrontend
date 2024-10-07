@@ -38,6 +38,7 @@
 
     <!-- Sección de tarjetas, mostrada solo si el usuario está logueado -->
     <section *ngIf="isLoggedIn" class="text-center mt-5">
+        
         <h2 class="mb-4 text-custom">Opciones</h2>
         <div class="row justify-content-center">
             <!-- Tarjeta de Inicio -->
@@ -77,6 +78,20 @@
                         </div>
                         <div class="overlay text-white d-flex align-items-center justify-content-center">
                             <h5 class="card-title">Usuarios</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta de Usuarios (solo para administradores) -->
+               <div class="col-md-4 mb-4" *ngIf="usuarioRol === 'administrador'">
+                <div class="card border-primary" style="height: 100%; cursor: pointer;" (click)="router.navigate(['/solicitudesAd'])">
+                    <div class="card-img-top position-relative">
+                        <div class="circle-image">
+                            <img src="https://media.gettyimages.com/id/1060529042/es/foto/mujer-joven-con-perro.jpg?s=612x612&w=0&k=20&c=HO_0mDrpJm_I_SwEy2tE1TXRqJvZRqqgj5Ft8RVQZms=" class="img-fluid" alt="Usuarios">
+                        </div>
+                        <div class="overlay text-white d-flex align-items-center justify-content-center">
+                            <h5 class="card-title">Gestor de solicitudes</h5>
                         </div>
                     </div>
                 </div>
@@ -156,4 +171,7 @@
     <section class="text-center mt-5">
         <h2 class="mb-4 text-custom">Contáctanos</h2>
         <p>Para más información sobre nuestras mascotas disponibles para adopción o sobre cómo puedes ayudar, no dudes en <a href="#" class="text-primary">contactarnos</a>.</p>
+        <a type="button" class="btn btn-danger" [routerLink]="['/inicio']">
+            <i class="fas fa-plus-circle"></i> Salir
+        </a>
     </section>

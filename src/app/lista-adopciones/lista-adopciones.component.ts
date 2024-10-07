@@ -39,7 +39,7 @@ export class ListaAdopcionesComponent implements OnInit {
     });
   }
 
-  borrarAdopcion(idAdopcion: number) {
+  borrarAdopcion(idAdopcion:string) {
     this.adopcionService.borrarAdopcion(String(idAdopcion)).subscribe({
       next: () => {
         console.log(`Adopción Eliminada`);
