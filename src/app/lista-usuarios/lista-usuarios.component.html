@@ -1,0 +1,65 @@
+<p>lista-usuarios j!</p>
+<main class="container my-5">
+    <header class="text-center">
+        <h6 class="display-4 font-weight-bold">Gestión de usuarios</h6>
+        <p class="lead text-muted">Visualiza y gestiona los usuarios registrados.</p>
+    </header>
+    
+    <nav class="mb-4">
+        <form class="form-inline justify-content-between mb-3" (submit)="search(); $event.preventDefault()">
+            <fieldset class="form-group flex-grow-1">
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    placeholder="Buscar usuario..." 
+                    aria-label="Buscar" 
+                    [(ngModel)]="searchQuery" 
+                    name="search" 
+                    (input)="search()">
+            </fieldset>
+            <fieldset class="form-group">
+                <a type="button" class="btn btn-primary" [routerLink]="['/usuarios/agregar']">
+                    <i class="fas fa-plus-circle"></i> Nuevo Usuario
+                </a>
+            </fieldset>
+        </form>
+    </nav>
+
+    <section>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Teléfono</th>
+                        <th>Dirección</th>
+                        <th>Fecha de Registro</th>
+                        <th>Rol</th> <!-- Nueva columna para Rol -->
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let usuario of filteredUsuarios">
+                        <td>{{ usuario.id }}</td>
+                        <td>{{ usuario.nombre }}</td>
+                        <td>{{ usuario.email }}</td>
+                        <td>{{ usuario.telefono || 'No disponible' }}</td>
+                        <td>{{ usuario.direccion || 'No disponible' }}</td>
+                        <td>{{ usuario.fecha_registro | date:'dd/MM/yyyy' }}</td>
+                        <td>{{ usuario.admin ? 'Administrador' : 'Usuario' }}</td> <!-- Mostrar rol -->
+                        <td>
+                            <a (click)="borrarUsuario(usuario.id)" title="Borrar" class="text-danger me-2">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                            <a [routerLink]="['/usuarios/editar/', usuario.id]" title="Editar" class="text-primary">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>

@@ -1,0 +1,57 @@
+<main class="container my-5">
+    <header class="text-center">
+        <h6 class="display-4 font-weight-bold">Gestión de Solicitudes</h6>
+        <p class="lead text-muted">Visualiza y gestiona las solicitudes de adopción.</p>
+    </header>
+    
+    <nav class="mb-4">
+        <form class="form-inline justify-content-between mb-3" (submit)="search(); $event.preventDefault()">
+            <fieldset class="form-group flex-grow-1">
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    placeholder="Buscar solicitud..." 
+                    aria-label="Buscar" 
+                    [(ngModel)]="searchQuery" 
+                    name="search" 
+                    (input)="search()">
+            </fieldset>
+            <fieldset class="form-group">
+            </fieldset>
+        </form>
+    </nav>
+
+    <section>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>ID Usuario</th>
+                        <th>ID Mascota</th>
+                        <th>Fecha de Solicitud</th>
+                        <th>Estado</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let solicitud of filteredSolicitudes">
+                        <td>{{ solicitud.id }}</td>
+                        <td>{{ solicitud.usuarioId }}</td>
+                        <td>{{ solicitud.mascotaId }}</td>
+                        <td>{{ solicitud.fechaSolicitud | date:'dd/MM/yyyy' }}</td>
+                        <td>
+                            <span class="badge" [ngClass]="{'badge-success': solicitud.estado === 'aprobada', 'badge-danger': solicitud.estado === 'rechazada', 'badge-warning': solicitud.estado === 'pendiente'}">
+                                {{ solicitud.estado }}
+                            </span>
+                        </td>
+                        <td>
+                            
+                    
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>

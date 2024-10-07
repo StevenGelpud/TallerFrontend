@@ -1,0 +1,34 @@
+<p>Editar Solicitudes</p>
+<div class="container">
+    <h2 *ngIf="idSolicitud">Editar Solicitud</h2>
+    <h2 *ngIf="!idSolicitud">Nueva Solicitud</h2>
+    
+    <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="usuarioId">ID del Usuario</label>
+            <input type="text" id="usuarioId" class="form-control" [(ngModel)]="solicitud.usuarioId" name="usuarioId" required />
+        </div>
+
+        <div class="form-group">
+            <label for="mascotaId">ID de la Mascota</label>
+            <input type="text" id="mascotaId" class="form-control" [(ngModel)]="solicitud.mascotaId" name="mascotaId" required />
+        </div>
+
+        <div class="form-group">
+            <label for="fechaSolicitud">Fecha de Solicitud</label>
+            <input type="date" id="fechaSolicitud" class="form-control" [value]="formattedDate" (change)="onDateChange($event)" name="fechaSolicitud" required />
+        </div>
+
+        <div class="form-group">
+            <label for="estado">Estado</label>
+            <select id="estado" class="form-control" [(ngModel)]="solicitud.estado" name="estado">
+                <option value="pendiente">Pendiente</option>
+                <option value="aprobada">Aprobada</option>
+                <option value="rechazada">Rechazada</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a routerLink="/solicitudes" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>

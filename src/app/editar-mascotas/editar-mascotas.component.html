@@ -1,0 +1,53 @@
+<p>editar mascotas jeason</p>
+<div class="container">
+    <h2 *ngIf="idMascota">Editar Mascota</h2>
+    <h2 *ngIf="!idMascota">Nueva Mascota</h2>
+    
+    <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" class="form-control" [(ngModel)]="mascota.nombre" name="nombre" required />
+        </div>
+
+        <div class="form-group">
+            <label for="especie">Especie</label>
+            <input type="text" id="especie" class="form-control" [(ngModel)]="mascota.especie" name="especie" required />
+        </div>
+
+        <div class="form-group">
+            <label for="raza">Raza</label>
+            <input type="text" id="raza" class="form-control" [(ngModel)]="mascota.raza" name="raza" />
+        </div>
+
+        <div class="form-group">
+            <label for="edad">Edad</label>
+            <input type="number" id="edad" class="form-control" [(ngModel)]="mascota.edad" name="edad" required />
+        </div>
+
+        <div class="form-group">
+            <label for="descripcion">Descripción</label>
+            <textarea id="descripcion" class="form-control" [(ngModel)]="mascota.descripcion" name="descripcion"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="estado_adopcion">Estado de Adopción</label>
+            <select id="estado_adopcion" class="form-control" [(ngModel)]="mascota.estado_adopcion" name="estado_adopcion">
+                <option [ngValue]="true">Adoptada</option>
+                <option [ngValue]="false">Disponible</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="fecha_ingreso">Fecha de Ingreso</label>
+            <input type="date" id="fecha_ingreso" class="form-control" [value]="formattedDate" (change)="onDateChange($event)" name="fecha_ingreso" required />
+        </div>
+
+        <div class="form-group">
+            <label for="imagen_url">URL de Imagen</label>
+            <input type="url" id="imagen_url" class="form-control" [(ngModel)]="mascota.imagen_url" name="imagen_url" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a routerLink="/mascotas" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>

@@ -1,0 +1,54 @@
+.card {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.card-footer {
+    background-color: #f8f9fa;
+}
+
+.card-title {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+h1 {
+    font-size: 2.5rem; /* Aumenta el tamaño del título */
+    font-weight: bold;
+    color: #007bff; /* Color azul */
+    text-shadow: 2px 2px 4px rgba(0, 123, 255, 0.3); /* Sombra suave */
+    margin-bottom: 20px; /* Espacio inferior */
+}
+
+p {
+    font-size: 1.2rem; /* Aumenta el tamaño del texto */
+    color: #555; /* Color gris oscuro */
+    line-height: 1.5; /* Espaciado entre líneas */
+    text-align: center; /* Centra el texto */
+    margin-bottom: 30px; /* Espacio inferior */
+}
+
+.logo-title {
+    font-size: 2rem; /* Tamaño del texto del logo */
+    color: #007bff; /* Color azul */
+    font-weight: bold; /* Negrita */
+    margin-top: 20px; /* Espacio superior */
+}
+
+.position-fixed {
+    position: fixed !important;
+}
+
+.translate-middle {
+    transform: translate(-50%, -50%);
+}
+
+.btn-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}

@@ -1,0 +1,74 @@
+<main class="container my-5">
+    <header class="text-center">
+        <h6 class="display-4 font-weight-bold">Gestión de mascotas</h6>
+        <p class="lead text-muted">Visualiza y gestiona las mascotas disponibles para adopción.</p>
+    </header>
+    
+    <nav class="mb-4">
+        <form class="form-inline justify-content-between mb-3" (submit)="search(); $event.preventDefault()">
+            <fieldset class="form-group flex-grow-1">
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    placeholder="Buscar mascota..." 
+                    aria-label="Buscar" 
+                    [(ngModel)]="searchQuery" 
+                    name="search" 
+                    (input)="search()">
+            </fieldset>
+            <fieldset class="form-group">
+                <a type="button" class="btn btn-primary" [routerLink]="['/mascotas/agregar']">
+                    <i class="fas fa-plus-circle"></i> Nueva Mascota
+                </a>
+            </fieldset>
+        </form>
+    </nav>
+
+    <section>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Especie</th>
+                        <th>Raza</th>
+                        <th>Edad</th>
+                        <th>Descripción</th>
+                        <th>Estado de Adopción</th>
+                        <th>Fecha de Ingreso</th>
+                        <th>Imagen</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let mascota of filteredMascotas">
+                        <td>{{ mascota.id }}</td>
+                        <td>{{ mascota.nombre }}</td>
+                        <td>{{ mascota.especie }}</td>
+                        <td>{{ mascota.raza }}</td>
+                        <td>{{ mascota.edad }} años</td>
+                        <td>{{ mascota.descripcion }}</td>
+                        <td>
+                            <span class="badge" [ngClass]="{'badge-success': mascota.estado_adopcion, 'badge-warning': !mascota.estado_adopcion}">
+                                {{ mascota.estado_adopcion ? 'Adoptada' : 'Disponible' }}
+                            </span>
+                        </td>
+                        <td>{{ mascota.fecha_ingreso | date:'dd/MM/yyyy' }}</td>
+                        <td>
+                            <img *ngIf="mascota.imagen_url" [src]="mascota.imagen_url" alt="{{ mascota.nombre }}" class="img-fluid rounded-circle" style="width: 50px; height: 50px;">
+                        </td>
+                        <td>
+                            <a (click)="borrarMascota(mascota.id)" title="Borrar" class="text-danger me-2">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                            <a [routerLink]="['/mascotas/editar/', mascota.id]" title="Editar" class="text-primary">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>

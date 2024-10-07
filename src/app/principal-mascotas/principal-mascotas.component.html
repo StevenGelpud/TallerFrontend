@@ -1,0 +1,159 @@
+
+    <header class="text-center mb-5">
+        <h1 class="display-4 text-custom">Bienvenido a AdopMascotas</h1>
+        <p class="lead">¡El amor no se compra! Encuentra tu próximo mejor amigo entre nuestros animales rescatados.</p>
+    </header>
+
+    <!-- Sección de inicio de sesión / registro -->
+    <section class="mb-5" *ngIf="!isLoggedIn"> <!-- Mostrar solo si no está logueado -->
+        <div class="container">
+            <h2 class="mb-4 text-center text-custom">Iniciar Sesión</h2>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-sm hover-shadow" style="border-radius: 15px;">
+                    <div class="card-body">
+                        <form (ngSubmit)="onLoginSubmit()">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Correo Electrónico</label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Ingresa tu correo" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Ingresa tu contraseña" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+                        </form>
+                        <div *ngIf="alertMessage" class="alert" [ngClass]="alertType" role="alert">
+                            {{ alertMessage }}
+                        </div>
+                        <div class="text-center mt-3">
+                            <a href="#" class="text-primary" [routerLink]="['/usuarios/agregar']">¿No tienes cuenta? Regístrate aquí</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de tarjetas, mostrada solo si el usuario está logueado -->
+    <section *ngIf="isLoggedIn" class="text-center mt-5">
+        <h2 class="mb-4 text-custom">Opciones</h2>
+        <div class="row justify-content-center">
+            <!-- Tarjeta de Inicio -->
+            <div class="col-md-4 mb-4 d-flex justify-content-center">
+                <div class="card border-primary" style="height: 100%; cursor: pointer;" (click)="router.navigate(['/inicio'])">
+                    <div class="card-img-top position-relative">
+                        <div class="circle-image">
+                            <img src="https://media.istockphoto.com/id/153812794/es/foto/bienvenido-a-casa-perro.jpg?b=1&s=170667a&w=0&k=20&c=VnP3_hTFr8JnWyguYemr3oYSV4uF5HU2kJ47KrQIBM0=" class="img-fluid" alt="Inicio">
+                        </div>
+                        <div class="overlay text-white d-flex align-items-center justify-content-center">
+                            <h5 class="card-title">Inicio</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta de Solicitudes -->
+            <div class="col-md-4 mb-4 d-flex justify-content-center">
+                <div class="card border-primary" style="height: 100%; cursor: pointer;" (click)="router.navigate(['/solicitudes'])">
+                    <div class="card-img-top position-relative">
+                        <div class="circle-image">
+                            <img src="https://media.gettyimages.com/id/1060529042/es/foto/mujer-joven-con-perro.jpg?s=612x612&w=0&k=20&c=HO_0mDrpJm_I_SwEy2tE1TXRqJvZRqqgj5Ft8RVQZms=" class="img-fluid" alt="Solicitudes">
+                        </div>
+                        <div class="overlay text-white d-flex align-items-center justify-content-center">
+                            <h5 class="card-title">Solicitudes</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta de Usuarios (solo para administradores) -->
+            <div class="col-md-4 mb-4" *ngIf="usuarioRol === 'administrador'">
+                <div class="card border-primary" style="height: 100%; cursor: pointer;" (click)="router.navigate(['/usuarios'])">
+                    <div class="card-img-top position-relative">
+                        <div class="circle-image">
+                            <img src="https://media.gettyimages.com/id/1060529042/es/foto/mujer-joven-con-perro.jpg?s=612x612&w=0&k=20&c=HO_0mDrpJm_I_SwEy2tE1TXRqJvZRqqgj5Ft8RVQZms=" class="img-fluid" alt="Usuarios">
+                        </div>
+                        <div class="overlay text-white d-flex align-items-center justify-content-center">
+                            <h5 class="card-title">Usuarios</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta de Adopciones (solo para administradores) -->
+            <div class="col-md-4 mb-4" *ngIf="usuarioRol === 'administrador'">
+                <div class="card border-primary" style="height: 100%; cursor: pointer;" (click)="router.navigate(['/adopciones'])">
+                    <div class="card-img-top position-relative">
+                        <div class="circle-image">
+                            <img src="https://media.gettyimages.com/id/1060529042/es/foto/mujer-joven-con-perro.jpg?s=612x612&w=0&k=20&c=HO_0mDrpJm_I_SwEy2tE1TXRqJvZRqqgj5Ft8RVQZms=" class="img-fluid" alt="Adopciones">
+                        </div>
+                        <div class="overlay text-white d-flex align-items-center justify-content-center">
+                            <h5 class="card-title">Adopciones</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta de Mascotas -->
+            <div class="col-md-4 mb-4" *ngIf="usuarioRol === 'administrador'">
+                <div class="card border-primary" style="height: 100%; cursor: pointer;" (click)="router.navigate(['/mascotas'])">
+                    <div class="card-img-top position-relative">
+                        <div class="circle-image">
+                            <img src="https://media.gettyimages.com/id/1060529042/es/foto/mujer-joven-con-perro.jpg?s=612x612&w=0&k=20&c=HO_0mDrpJm_I_SwEy2tE1TXRqJvZRqqgj5Ft8RVQZms=" class="img-fluid" alt="Mascotas">
+                        </div>
+                        <div class="overlay text-white d-flex align-items-center justify-content-center">
+                            <h5 class="card-title">Mascotas</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mb-5">
+        <h2 class="mb-4 text-center text-custom">Sobre Nosotros</h2>
+        <div class="card mb-3 shadow-sm hover-shadow">
+            <div class="card-body">
+                <p class="card-text">AdopMascotas es una organización sin fines de lucro dedicada a la adopción de animales rescatados. Nuestra misión es encontrar hogares amorosos para mascotas necesitadas y fomentar la adopción responsable.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="mt-5 mb-5 text-center">
+        <h2 class="mb-4 text-custom">Nuestra Misión y Visión</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-3 shadow-sm hover-shadow">
+                    <div class="card-body">
+                        <h5 class="card-title text-custom">Nuestra Misión</h5>
+                        <p class="card-text">Brindar una segunda oportunidad a mascotas abandonadas y crear conciencia sobre la importancia de la adopción y el bienestar animal.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card mb-3 shadow-sm hover-shadow">
+                    <div class="card-body">
+                        <h5 class="card-title text-custom">Nuestra Visión</h5>
+                        <p class="card-text">Ser un referente en la comunidad en la promoción de la adopción y el cuidado de mascotas, garantizando que cada animal tenga un hogar seguro y amoroso.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mt-5">
+        <h2 class="mb-4 text-center text-custom">¿Por qué adoptar?</h2>
+        <ul class="list-group mb-5">
+            <li class="list-group-item hover-shadow">🛡️ Salvas una vida.</li>
+            <li class="list-group-item hover-shadow">🐾 Ayudas a reducir la población de animales en refugios.</li>
+            <li class="list-group-item hover-shadow">❤️ Obtienes un compañero leal y amoroso.</li>
+            <li class="list-group-item hover-shadow">🌍 Contribuyes a la lucha contra el abandono y el maltrato animal.</li>
+        </ul>
+    </section>
+
+    <section class="text-center mt-5">
+        <h2 class="mb-4 text-custom">Contáctanos</h2>
+        <p>Para más información sobre nuestras mascotas disponibles para adopción o sobre cómo puedes ayudar, no dudes en <a href="#" class="text-primary">contactarnos</a>.</p>
+    </section>

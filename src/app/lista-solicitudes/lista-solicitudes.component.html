@@ -1,0 +1,104 @@
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Adoptar Mascotas</h1>
+    <p>El cariño que estas mascotas brindan es mágico; están llenas de amor y cariño. ¡Solicita su adopción!</p>
+    <div class="row">
+        <div class="col-sm-4 mb-4" *ngFor="let mascota of mascotas">
+            <div class="card text-center shadow-lg border-0" (click)="selectMascota(mascota); scrollToDetails()" style="cursor: pointer;">
+                <div class="card-body">
+                    <img *ngIf="mascota.imagen_url" [src]="mascota.imagen_url" class="rounded-circle" alt="{{ mascota.nombre }}" style="width: 80px; height: 80px; object-fit: cover; border: 3px solid #007bff;">
+                    <h5 class="card-title mt-2">{{ mascota.nombre }}</h5>
+                    <span class="badge" [ngClass]="{'bg-success': !mascota.estado_adopcion, 'bg-warning': mascota.estado_adopcion}">
+                        {{ mascota.estado_adopcion ? 'Adoptada' : 'Disponible' }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detalle de la mascota -->
+    <div *ngIf="selectedMascota" class="card mt-4 animate__animated animate__fadeIn shadow-lg text-center" style="border: none;">
+        <div *ngIf="!adoptionSubmitted; else confirmationTemplate">
+            <div class="row g-0 align-items-center">
+                <div class="col-md-4">
+                    <img *ngIf="selectedMascota.imagen_url" [src]="selectedMascota.imagen_url" class="rounded-circle img-fluid" alt="{{ selectedMascota.nombre }}" style="height: 300px; width: 300px; object-fit: cover; border: 5px solid #007bff;">
+                </div>
+                <div class="col-md-4">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ selectedMascota.nombre }}</h5>
+                        <p><strong>Especie:</strong> {{ selectedMascota.especie }}</p>
+                        <p><strong>Raza:</strong> {{ selectedMascota.raza }}</p>
+                        <p><strong>Edad:</strong> {{ selectedMascota.edad }} años</p>
+                        <p><strong>Descripción:</strong> {{ selectedMascota.descripcion }}</p>
+                        <p><strong>Estado de adopción:</strong> 
+                            <span [ngClass]="{'bg-success': !selectedMascota.estado_adopcion, 'bg-warning': selectedMascota.estado_adopcion}" class="badge">
+                                {{ selectedMascota.estado_adopcion ? 'Adoptada' : 'Disponible' }}
+                            </span>
+                        </p>
+                        <p><strong>Fecha de ingreso:</strong> {{ selectedMascota.fecha_ingreso | date:'dd/MM/yyyy' }}</p>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center">
+                    <h2 class="logo-title">AdopMascota</h2>
+                    <p class="mt-2"><strong>El amor no se compra</strong></p>
+                    <!-- Botón "Adoptar" modificado -->
+                    <button *ngIf="!selectedMascota.estado_adopcion" class="btn btn-success btn-lg mt-3" (click)="openModal(selectedMascota)">¡Adoptar!</button>
+                </div>
+            </div>
+        </div>
+        <ng-template #confirmationTemplate>
+            <div class="card-body">
+                <h5 class="card-title">¡Gracias por tu interés!</h5>
+                <p>Si ya llenaste el formulario, tu solicitud será evaluada.</p>
+                <p>No olvides enviar esta solicitud al correo que aparece en el documento.</p>
+                <p>Por favor, mantente pendiente a tu correo.</p>
+                <button class="btn btn-primary mt-3" (click)="goToHome()">Salir</button>
+            </div>
+        </ng-template>
+        <div class="card-footer text-muted text-center">
+            <small>¡Considera adoptar y dar un hogar a una mascota!</small>
+        </div>
+    </div>
+
+    <!-- Modal de confirmación -->
+    <div *ngIf="showModal" class="modal" tabindex="-1" role="dialog" style="display: block;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmar Adopción</h5>
+                    <button type="button" class="close" (click)="closeModal()">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Estás seguro de que deseas adoptar a {{ selectedMascota?.nombre }}?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancelar</button>
+                    <button type="button" class="btn btn-primary" (click)="openEmailModal()">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de confirmación de correo -->
+    <div *ngIf="showEmailModal" class="modal" tabindex="-1" role="dialog" style="display: block;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmar Correo</h5>
+                    <button type="button" class="close" (click)="closeEmailModal()">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label for="email">Ingresa tu correo electrónico:</label>
+                    <input type="email" id="email" [(ngModel)]="email" class="form-control" placeholder="tuemail@ejemplo.com" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" (click)="closeEmailModal()">Cancelar</button>
+                    <button type="button" class="btn btn-primary" (click)="confirmEmail()">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

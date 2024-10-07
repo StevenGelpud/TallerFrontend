@@ -1,0 +1,22 @@
+.container {
+    padding: 20px;
+    background-color: #f8f9fa; /* Color de fondo suave */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+h1 {
+    font-size: 3rem; /* Tamaño grande para el nombre */
+    text-transform: uppercase; /* Texto en mayúsculas */
+    font-weight: 700; /* Hacer el texto más grueso */
+}
+
+h3 {
+    font-size: 1.5rem; /* Tamaño más pequeño para el subtítulo */
+    font-weight: 600; /* Hacer el texto más grueso */
+}
+
+.img-fluid {
+    max-width: 100%; /* Asegurarse de que la imagen sea responsiva */
+    height: auto; /* Mantener la proporción */
+}
